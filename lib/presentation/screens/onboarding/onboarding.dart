@@ -5,10 +5,13 @@ import 'package:islami_c13_offline/core/resources/assets_manager.dart';
 import 'package:islami_c13_offline/core/resources/colors_manager.dart';
 import 'package:islami_c13_offline/core/routes_manager/routes_manager.dart';
 
-class Onboarding extends StatelessWidget {
-  Onboarding({super.key});
+import '../../../core/prefs_handler/local_storage_key.dart';
+import '../../../core/prefs_handler/prefs_handler.dart';
 
-  TextStyle bodyStyle = TextStyle(fontSize: 19.0);
+class Onboarding extends StatelessWidget {
+  const Onboarding({super.key});
+
+  final TextStyle bodyStyle = const TextStyle(fontSize: 16.0);
 
   Widget _buildImage(String assetName, [double width = 350]) {
     return Image.asset(
@@ -18,7 +21,7 @@ class Onboarding extends StatelessWidget {
     );
   }
 
-  PageDecoration pageDecoration = PageDecoration(
+  final PageDecoration pageDecoration = const PageDecoration(
     imageFlex: 2,
     titleTextStyle: TextStyle(
         fontSize: 24.0, fontWeight: FontWeight.w700, color: ColorsManager.gold),
@@ -39,20 +42,23 @@ class Onboarding extends StatelessWidget {
       dotsFlex: 2,
 
       showDoneButton: true,
+      showNextButton: true,
+      showSkipButton: true,
 
       dotsDecorator: DotsDecorator(
           color: Colors.grey,
           activeColor: ColorsManager.gold,
-          activeSize: Size(18, 7),
-          size: Size(7, 7),
+          activeSize: const Size(18, 7),
+          size: const Size(7, 7),
           activeShape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
 
-      done: Text(
+      done: const Text(
         'Finish',
         style: AppStyles.goldBold16,
       ),
       onDone: () {
+        PrefsHandler.setBool(LocalStorageKeys.isFirstTimeRun, false);
         Navigator.pushReplacementNamed(context, RoutesManager.home);
       },
       globalHeader: SafeArea(
@@ -61,7 +67,7 @@ class Onboarding extends StatelessWidget {
         height: 100,
       )),
 
-      showNextButton: true,
+
       next: const Text(
         'Next',
         style: AppStyles.goldBold16,
@@ -71,9 +77,13 @@ class Onboarding extends StatelessWidget {
       //   'Back',
       //   style: AppStyles.goldBold16,
       // ),
-      showSkipButton: true,
-      onSkip: () {},
-      skip: Text('Skip'),
+
+      onSkip: () {
+        PrefsHandler.setBool(LocalStorageKeys.isFirstTimeRun, false);
+        Navigator.pushReplacementNamed(context, RoutesManager.home);
+      },
+      skip: const Text('Skip'),
+
       pages: [
         PageViewModel(
           title: "Welcome To Islami App",

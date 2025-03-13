@@ -3,7 +3,8 @@ import 'package:islami_c13_offline/config/theme/app_theme.dart';
 import 'package:islami_c13_offline/core/routes_manager/routes_manager.dart';
 
 class IslamiApp extends StatelessWidget {
-  const IslamiApp({super.key});
+  final String initialRoute;
+  const IslamiApp({super.key, required this.initialRoute});
 
   // This widget is the root of your application.
   @override
@@ -13,7 +14,7 @@ class IslamiApp extends StatelessWidget {
       darkTheme: AppTheme.dark,
       themeMode: ThemeMode.light,
       routes: RoutesManager.routes,
-      initialRoute: RoutesManager.onboarding,
+      initialRoute: initialRoute,
     );
   }
 }

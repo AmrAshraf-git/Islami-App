@@ -1,4 +1,4 @@
-package com.example.islami_c13_offline
+package com.ipro.islami
 
 import io.flutter.embedding.android.FlutterActivity
 
